@@ -1,0 +1,15 @@
+langchain
+streamlit
+huggingface_hub
+tiktoken
+python-decouple
+pypdf
+pypdf2
+sentence-transformers
+torch
+pytesseract
+opencv-python
+pdf2image
+pandas
+langchain_together
+langchain_community
