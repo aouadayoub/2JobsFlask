@@ -72,7 +72,7 @@ def extract_text_from_pdf(PATH_FILE):
     return extract_text
 
 # Usage of the function extract_text_from_pdf
-#PATH_FILE = r"C:\Users\aouad\OneDrive\Bureau\stage_ine2\projet_emplois\Extract-data-from-resume-using-LLMs\AOUAD_AYOUB_CV.pdf"
-#PATH_FILE = r"C:\Users\aouad\OneDrive\Bureau\stage_ine2\Convention_aouad_ayoub.pdf"
+#PATH_FILE = r"C:\Users\aouad\AOUAD_AYOUB_CV.pdf"
+#PATH_FILE = r"C:\Users\aouad\AOUAD_AYOUB_CV_scanned.pdf"
 #extracted_text = extract_text_from_pdf(PATH_FILE)
 #print(extracted_text)

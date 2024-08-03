@@ -1,5 +1,3 @@
-#import ExtractFormation
-#import ExtractExperiences
 import ExtractSkills
 
 

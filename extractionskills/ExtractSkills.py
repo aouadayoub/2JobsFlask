@@ -4,8 +4,8 @@ from langchain_core.messages import HumanMessage
 import os
 
 #import ExtractDataOCR
-#import ExtractDataPyPDF2
-import testpdf
+from . import testpdf
+
 
 def GetSkillsResume(path):
     # Load environment variables
@@ -20,7 +20,7 @@ def GetSkillsResume(path):
         together_api_key=together_api_key
     )
 
-    # Context = ExtractDataOCR.extract_text_from_pdf(path)
+    #Context = ExtractDataOCR.extract_text_from_pdf(path)
     Context = testpdf.extract_text_pdfplumber(path)
 
     Prompt = f"""<|begin_of_text|><|start_header_id|>system<|end_header_id|>
@@ -55,9 +55,8 @@ Here is the list of professional and technical skills extracted from the resume:
     response = llm.invoke([message])
     return response
 
-#PATH_FILE = r"C:\Users\aouad\OneDrive\Bureau\cv\FR_CV_AHIDAR_SAMI.pdf.pdf"
-#PATH_FILE = r"C:\Users\aouad\OneDrive\Bureau\cv\AJMAL CV .pdf"
-#PATH_FILE = r"C:\Users\aouad\Downloads\CV_TEMPLATE_0003.pdf"
+#PATH_FILE = r"C:\Users\aouad\CV_TEMPLATE_0001.pdf"
+#PATH_FILE = r"C:\Users\aouad\CV_TEMPLATE_0002.pdf"
+#PATH_FILE = r"C:\Users\aouad\CV_TEMPLATE_0003.pdf"
 #skills = GetSkillsResume(PATH_FILE)
 #print(skills)
-#skills + matching code 
