@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
+CORS(app, resources={r"/*": {"origins": "http://localhost:4000"}}, supports_credentials=True)
 
 # Set the path for the uploads folder and other configuration
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), '../upload')
