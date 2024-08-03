@@ -11,5 +11,9 @@ pytesseract
 opencv-python
 pdf2image
 pandas
-langchain_together
+langchain-together
 langchain_community
+flask
+pymongo
+langchain-core
+pdfplumber

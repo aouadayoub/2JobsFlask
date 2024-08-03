@@ -2,14 +2,15 @@
 
 # Before we start, make sure you have the following libraries installed:
     # 1. pdf2image: To convert PDF files into images. "pip install pdf2image"
-    # 2. pytesseract: A Python wrapper for Google’s Tesseract OCR engine. "pip install pytesseract"
+    # 2. pytesseract: A Python wrapper for Google's Tesseract OCR engine. "pip install pytesseract"
     # 3. OpenCV: For image preprocessing tasks like deskewing and grayscale conversion. "pip install opencv-python"
     # 4. pandas: For storing extracted text data in a structured manner. "pip install pandas"
 
-    # attention the libraries convert_from_path and tesseract becouse you need to install some packages
-    # for convert_from_path you need to install poppler you can click the link to know to install it 
-            # "https://www.youtube.com/watch?v=SioLV0f0sr0&t=11s&ab_channel=CodingDiksha"
-    # about tesseract you need to install tesseract you can click the link to know how "https://www.youtube.com/watch?v=LMM6s9JL5GA&ab_channel=datascienceAnywhere"
+# Attention: the libraries convert_from_path and tesseract require additional packages.
+# For convert_from_path, you need to install poppler. You can follow this link to know how to install it:
+# "https://www.youtube.com/watch?v=SioLV0f0sr0&t=11s&ab_channel=CodingDiksha"
+# For tesseract, you need to install tesseract. You can follow this link to know how:
+# "https://www.youtube.com/watch?v=LMM6s9JL5GA&ab_channel=datascienceAnywhere"
 
 from pdf2image import convert_from_path
 import pytesseract
@@ -17,7 +18,7 @@ import cv2
 import numpy as np
 import os
 
-# function for preprocessing images
+# Function for preprocessing images
 def deskew(image):
     if not isinstance(image, np.ndarray):
         raise ValueError("Input image is not a valid numpy array")
@@ -39,22 +40,21 @@ def deskew(image):
 
     return rotated
 
-# function for extracting text from images
+# Function for extracting text from images
 def extract_text_from_image(image):
     text = pytesseract.image_to_string(image)
     return text
 
-
 def extract_text_from_pdf(PATH_FILE):
-    # function to transform images into text
-    pages = convert_from_path(PATH_FILE, poppler_path="C:/Program Files/poppler-24.02.0/Library/bin")
+    # Function to transform images into text
+    pages = convert_from_path(PATH_FILE, poppler_path=r'C:\poppler\Library\bin')
 
-    # Créer un dossier pour stocker les images si ce n'est pas déjà fait
+    # Create a directory to store the images if it doesn't exist
     output_directory = 'test/img'
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
 
-    # Sauvegarder les images des pages du PDF dans un répertoire
+    # Save the images of the PDF pages in a directory
     for i, page in enumerate(pages):
         page.save(os.path.join(output_directory, 'page'+str(i)+'.jpg'), 'JPEG')
 
@@ -66,12 +66,13 @@ def extract_text_from_pdf(PATH_FILE):
         # Step 3: Extract text using OCR
         text = extract_text_from_image(preprocess_image)
 
-        # step 4: add text page into list
+        # Step 4: Add text page into list
         extract_text.append(text)
 
     return extract_text
 
-# # Utilisation de la fonction extract_text_from_pdf
-# PATH_FILE = "D:\HAMZA M2\CV_Hamza_Moumad_.pdf"
-# extracted_text = extract_text_from_pdf(PATH_FILE)
-# print(extracted_text)
+# Usage of the function extract_text_from_pdf
+#PATH_FILE = r"C:\Users\aouad\OneDrive\Bureau\stage_ine2\projet_emplois\Extract-data-from-resume-using-LLMs\AOUAD_AYOUB_CV.pdf"
+#PATH_FILE = r"C:\Users\aouad\OneDrive\Bureau\stage_ine2\Convention_aouad_ayoub.pdf"
+#extracted_text = extract_text_from_pdf(PATH_FILE)
+#print(extracted_text)

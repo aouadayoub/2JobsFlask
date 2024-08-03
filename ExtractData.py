@@ -1,17 +1,17 @@
-import ExtractFormation
-import ExtractExperiences
+#import ExtractFormation
+#import ExtractExperiences
 import ExtractSkills
 
 
 def ExtractData(path):
 
-    formation = ExtractFormation.GetFormationResume(path)
+    #formation = ExtractFormation.GetFormationResume(path)
 
-    Experiences = ExtractExperiences.GetEXperiencesResume(path)
+    #Experiences = ExtractExperiences.GetEXperiencesResume(path)
 
     Skills = ExtractSkills.GetSkillsResume(path)
 
-    return formation, Experiences, Skills
+    return Skills
 
 
 # PATH_FILE = "D:\HAMZA M2\Fati_CV.pdf"

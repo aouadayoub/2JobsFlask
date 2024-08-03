@@ -1,4 +1,4 @@
-from langchain_community.llms import Together
+from langchain_together import Together
 from decouple import config
 import os
 
@@ -26,15 +26,23 @@ def GetFormationResume(path):
 
     # print(Context)
 
-    Prompt = f"""You are an expert in HR. Your goal is to analys Resume and extract Formations from it:\
-    based on the following context extract all Formations and all details like(Date, school and city) from this Resume
-        
-    Context: '{Context}'
+    Prompt = f"""system
 
-    Make sure to extract a list of All Formations mentions.\
-    Make sure to extract only the formation not experiences. 
-    #FORMATIONS:
-    """
+You are an expert in HR. Your goal is to analyze resumes and extract "Formations" (Education) from them.
+
+user
+
+Here is the context of a resume: '{Context}'.
+
+Please extract all "Formations" and all details like (Date, school, and city) from this resume.
+
+assistant
+
+Make sure to extract a list of all "Formations" mentioned.
+Make sure to extract only the formations, not experiences.
+
+#FORMATIONS:
+"""
 
     # print(Prompt)
 
@@ -45,3 +53,7 @@ def GetFormationResume(path):
 # Answer = GetFormationResume(PATH_FILE)
 
 # print(Answer)
+"""PATH_FILE = r"C:\Users\aouad\OneDrive\Bureau\stage_ine2\projet_emplois\Extract-data-from-resume-using-LLMs\AOUAD_AYOUB_CV.pdf"
+Answer = GetFormationResume(PATH_FILE)
+
+print(Answer)"""
