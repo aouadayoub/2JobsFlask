@@ -2,9 +2,8 @@ from langchain_together import Together
 from decouple import config
 from langchain_core.messages import HumanMessage
 import os
-
 #import ExtractDataOCR
-from . import testpdf
+from . import Extractpdf
 
 
 def GetSkillsResume(path):
@@ -21,7 +20,7 @@ def GetSkillsResume(path):
     )
 
     #Context = ExtractDataOCR.extract_text_from_pdf(path)
-    Context = testpdf.extract_text_pdfplumber(path)
+    Context = Extractpdf.extract_text_pdfplumber(path)
 
     Prompt = f"""<|begin_of_text|><|start_header_id|>system<|end_header_id|>
 You are an expert HR AI assistant specialized in analyzing resumes from various professional fields and extracting relevant skills.<|eot_id|><|start_header_id|>user<|end_header_id|>
@@ -55,7 +54,7 @@ Here is the list of professional and technical skills extracted from the resume:
     response = llm.invoke([message])
     return response
 
-#PATH_FILE = r"C:\Users\aouad\CV_TEMPLATE_0001.pdf"
+#PATH_FILE = r"C:\Users\aouad\OneDrive\Bureau\cv\AOUAD_AYOUB_CV.pdf"
 #PATH_FILE = r"C:\Users\aouad\CV_TEMPLATE_0002.pdf"
 #PATH_FILE = r"C:\Users\aouad\CV_TEMPLATE_0003.pdf"
 #skills = GetSkillsResume(PATH_FILE)

@@ -1,13 +1,26 @@
 from langchain_together import Together
 from decouple import config
 from langchain_core.messages import HumanMessage
-from functools import lru_cache
+import redis
 import os
+import hashlib
+import json
 
+# Configure Redis connection
+redis_client = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
 
+def generate_cache_key(prompt):
+    """Generate a unique cache key based on the prompt."""
+    return hashlib.md5(prompt.encode('utf-8')).hexdigest()
 
-@lru_cache(maxsize=128)
 def ProcessPrompt(prompt):
+    cache_key = generate_cache_key(prompt)
+    
+    # Check if result is in the Redis cache
+    cached_result = redis_client.get(cache_key)
+    if cached_result:
+        return json.loads(cached_result)
+
     together_api_key = config("together_api_key")
     os.environ["together_api_key"] = together_api_key
 
@@ -31,29 +44,30 @@ Follow these guidelines:
 3. Support both English and French prompts.
 
 Example output:
-• Data Analyst
-• Project Manager
-• Software Engineer
-• Financial Analyst
-• Customer Relationship Manager
-• Supply Chain Manager
-• Sales Manager
-• Technical Writerassistant
+Data Analyst
+Project Manager
+Software Engineer
+Financial Analyst
+Customer Relationship Manager
+Supply Chain Manager
+Sales Manager
+Technical Writerassistant
 
 Here is the job title extracted from the prompt:
 
 """
 
     message = HumanMessage(content=Prompt)
-    response = llm.invoke([message])
+    response = llm.invoke([message]).strip()
+
+    # Cache the result in Redis
+    redis_client.set(cache_key, json.dumps(response), ex=3600)  # Cache expires in 1 hour
+
     return response.strip()
 
-def clean_job_title(job_title):
-    """
-    Clean the job title by removing unwanted characters and bullet points.
-    """
-    job_title = job_title.replace("•", "").strip()
-    return job_title
-#prompt='I am looking for an opprotunity in cooking'
-#answer=ProcessPrompt(prompt)
-#print(answer)
+"""# Example usage
+if __name__ == "__main__":
+    prompt = 'i am looking for a line cook position'
+    answer = ProcessPrompt(prompt)
+    print(answer)
+"""

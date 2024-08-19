@@ -17,3 +17,6 @@ flask
 pymongo
 langchain-core
 pdfplumber
+redis
+flask-cors
+gunicorn
