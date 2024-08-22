@@ -13,7 +13,7 @@ def extract_text_pdfplumber(path_file):
     return content
 
 # Path to your PDF files
-#PATH_FILE_SCANED = r"C:\Users\aouad\OneDrive\Bureau\stage_ine2\Convention_aouad_ayoub.pdf"
+#PATH_FILE_SCANED = r"C:\Users\aouad\OneDrive\Bureau\SCANNED_pdf.pdf"
 #PATH_FILE_NORMAL = r"C:\Users\aouad\OneDrive\Bureau\cv\AOUAD_AYOUB_CV.pdf
 
 # Example usage

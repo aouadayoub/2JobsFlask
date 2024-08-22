@@ -3,7 +3,7 @@ from flask_cors import CORS
 import os
 from extractionskills.ExtractSkills import GetSkillsResume
 from extractionprompt.process_prompt import ProcessPrompt
-from matching.matching import match_jobs  # Ensure this matches the function name
+from matching.matching import match_jobs  
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:4000"}}, supports_credentials=True)

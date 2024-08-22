@@ -42,6 +42,7 @@ Follow these guidelines:
 1. Extract ONLY the job title explicitly mentioned in the prompt.
 2. Format the output as a single job title without additional text.
 3. Support both English and French prompts.
+4. If the job title in the prompt is in a language other than English, translate it to English.
 
 Example output:
 Data Analyst
@@ -52,6 +53,7 @@ Customer Relationship Manager
 Supply Chain Manager
 Sales Manager
 Technical Writerassistant
+Line Cook 
 
 Here is the job title extracted from the prompt:
 
