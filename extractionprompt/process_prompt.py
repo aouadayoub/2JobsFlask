@@ -6,8 +6,8 @@ import os
 import hashlib
 import json
 
-# Configure Redis connection
-redis_client = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
+# Configure Redis connection using environment variable
+redis_client = redis.StrictRedis.from_url(config("REDIS_URL"), decode_responses=True)
 
 def generate_cache_key(prompt):
     """Generate a unique cache key based on the prompt."""
@@ -33,7 +33,7 @@ def ProcessPrompt(prompt):
     )
 
     Prompt = f"""system
-You are an expert HR AI assistant.user
+You are an expert HR AI assistant.
 Please analyze the following prompt and extract the job title the user is looking for:
 
 {prompt}
@@ -52,7 +52,7 @@ Financial Analyst
 Customer Relationship Manager
 Supply Chain Manager
 Sales Manager
-Technical Writerassistant
+Technical Writer
 Line Cook 
 
 Here is the job title extracted from the prompt:
@@ -66,6 +66,7 @@ Here is the job title extracted from the prompt:
     redis_client.set(cache_key, json.dumps(response), ex=3600)  # Cache expires in 1 hour
 
     return response.strip()
+
 
 """# Example usage
 if __name__ == "__main__":

@@ -1,11 +1,25 @@
 from database.mongdatabase import get_jobs_collection
+import redis
 import logging
+from decouple import config
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Connect to Redis
+redis_client = redis.StrictRedis.from_url(config('REDIS_URL'))
+
 def match_jobs(cv_skills, job_title, country=None, limit=150):
+    # Create a unique cache key based on the function parameters
+    cache_key = f"matched_jobs:{cv_skills}:{job_title}:{country}:{limit}"
+
+    # Check if the result is in Redis cache
+    cached_result = redis_client.get(cache_key)
+    if cached_result:
+        logger.info("Using cached results from Redis")
+        return cached_result.decode('utf-8')  # Return cached result
+
     jobs_collection = get_jobs_collection()
 
     try:
@@ -60,12 +74,16 @@ def match_jobs(cv_skills, job_title, country=None, limit=150):
                 job['_id'] = str(job['_id'])
 
         logger.info(f"Matched {len(matched_jobs)} jobs.")
-        
+
+        # Store the result in Redis cache for future requests
+        redis_client.set(cache_key, str(matched_jobs), ex=3600)  # Cache for 1 hour (3600 seconds)
+
     except Exception as e:
         logger.error(f"Error matching jobs: {str(e)}")
         matched_jobs = []
 
     return matched_jobs
+
 
 """# Example usage
 if __name__ == "__main__":

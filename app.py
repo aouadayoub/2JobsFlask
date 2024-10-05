@@ -6,7 +6,7 @@ from extractionprompt.process_prompt import ProcessPrompt
 from matching.matching import match_jobs  
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:4000"}}, supports_credentials=True)
+CORS(app, resources={r"/*": {"origins": ["http://localhost:4000", "https://twojobsbackend.onrender.com"]}}, supports_credentials=True)
 
 # Set the path for the uploads folder and other configuration
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), '../upload')
@@ -46,3 +46,4 @@ def process():
 
 if __name__ == "__main__":
     app.run(debug=True, port=4000)
+    
