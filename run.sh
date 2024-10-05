@@ -1,20 +1,9 @@
 #!/bin/bash
 
-# Start MongoDB
-echo "Starting MongoDB..."
-mongod &
-
-# Start Redis
-echo "Starting Redis..."
-redis-server &
-
-# Wait for 4 seconds
-echo "Waiting for MongoDB and Redis to start..."
+# Wait for a few seconds to ensure services like MongoDB and Redis are available
+echo "Waiting for MongoDB and Redis to be available..."
 sleep 4
 
-# Start Flask App
-echo "Starting Flask App..."
-python app.py & 
-
-# Keep the script running in the foreground
-wait -n 
+# Start the Flask app with Gunicorn
+echo "Starting Flask app with Gunicorn..."
+gunicorn app:app --bind 0.0.0.0:4000 --workers 4
