@@ -6,4 +6,4 @@ sleep 4
 
 # Start the Flask app with Gunicorn
 echo "Starting Flask app with Gunicorn..."
-gunicorn app:app --bind 0.0.0.0:4000 --workers 4
+gunicorn app:app --bind 0.0.0.0:${PORT} --workers 4
