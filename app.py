@@ -12,10 +12,10 @@ CORS(app, resources={r"/*": {"origins": ["http://localhost:4000", "https://twojo
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), '../upload')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route("/health", methods=["GET"])
-def health_check():
-    return jsonify({"status": "OK", "message": "Flask app is running!"}), 200
 
+@app.route("/", methods=["GET"]) 
+def index():
+    return jsonify({"message": "Flask app is running!"}), 200 
 
 @app.route("/process", methods=["POST"])
 def process():
